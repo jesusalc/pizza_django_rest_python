@@ -1,0 +1,40 @@
+service: my-service
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, 'dev'}  # Set the default stage to 'dev'
+  environment:
+    DB_HOST: ${ssm:/path/to/db_host~true}
+    DB_PORT: ${ssm:/path/to/db_port~true}
+    DB_NAME: ${ssm:/path/to/db_name~true}
+    DB_USER: ${ssm:/path/to/db_user~true}
+    DB_PASSWORD: ${ssm:/path/to/db_password~true}
+
+
+custom:
+  stage: ${self:provider.stage}
+
+functions:
+  hello:
+    handler: handler.hello
+
+resources:
+  Resources:
+    NewResource:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:custom.stage}-NewResource
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+
+
