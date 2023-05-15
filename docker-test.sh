@@ -1,1 +1,2 @@
-docker exec -it 5ef8dd3bfd9d  sh -c "cd /app && python manage.py test"
+CONTAINER_ID=$(docker ps -f "name=pizza_django_web" --format "{{.ID}}")
+docker exec -it ${CONTAINER_ID}  sh -c "cd /app && python manage.py test"
