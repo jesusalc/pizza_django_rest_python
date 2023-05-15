@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+touch drinks/views.py
+echo "from django.http import JsonResponse
 from .models import Drink
 from .serializers import DrinkSerializer
 from rest_framework.decorators import api_view
@@ -39,4 +40,7 @@ def drink_details(request, id, format=None):
         drink.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+
+" > drinks/views.py
 
