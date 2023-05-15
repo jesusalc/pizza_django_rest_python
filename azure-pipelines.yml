@@ -1,0 +1,48 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Test
+  jobs:
+  - job: RunTests
+    steps:
+    - script: echo 'Running tests...'
+      displayName: 'Test'
+
+- stage: Development
+  jobs:
+  - deployment: DeployToDev
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploying to development environment...'
+            displayName: 'Development Deployment'
+
+- stage: Staging
+  jobs:
+  - deployment: DeployToStaging
+    environment: 'staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploying to staging environment...'
+            displayName: 'Staging Deployment'
+
+- stage: Production
+  jobs:
+  - deployment: DeployToProduction
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploying to production environment...'
+            displayName: 'Production Deployment'
+
+
