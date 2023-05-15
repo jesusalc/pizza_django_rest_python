@@ -1,0 +1,58 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://localhost:2375
+
+test:
+  stage: test
+  image: python:3.8
+  script:
+    - pip install -r requirements.txt
+    - python manage.py test
+
+build:
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+deploy_development:
+  stage: deploy
+  environment:
+    name: development
+  script:
+    - kubectl config use-context dev-context
+    - kubectl set image deployment/my-deployment my-container=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+deploy_staging:
+  stage: deploy
+  environment:
+    name: staging
+  script:
+    - kubectl config use-context staging-context
+    - kubectl set image deployment/my-deployment my-container=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  only:
+    - master
+
+deploy_production:
+  stage: deploy
+  environment:
+    name: production
+  script:
+    - kubectl config use-context production-context
+    - kubectl set image deployment/my-deployment my-container=$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  only:
+    - tags
+
+
+

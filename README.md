@@ -3,11 +3,19 @@
 This is a Django-based pizza ordering service using the Django REST framework.
 
 ## Requirements
+Fullstack Task 2023
 
-* Docker
-* Docker Compose
+Flavors
+Imagine a pizza ordering services with the following functionality: • Order pizzas:
+• It should be possible to specify the desired flavours of pizza (margarita, marinara, salami), the number of pizzas and their size (small, medium, large).
+• An order should contain information regarding the customer.
+• It should be possible to track the status of delivery.
+• It should be possible to order the same flavour of pizza but with different sizes multiple times
 
 ## Running the application
+
+run *.sh files 
+
 
 1. Clone the repository:
 

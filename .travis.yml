@@ -1,0 +1,29 @@
+language: python
+python:
+  - '3.8'
+
+services:
+  - docker
+
+before_script: pip install docker-compose
+
+script:
+  - docker-compose run app sh -c "python manage.py test"
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=myrepo/myapp
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$TRAVIS_COMMIT .
+  - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
+  - docker push $REPO
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app:
+    master: myapp-production
+    staging: myapp-staging
+    develop: myapp-develop
+
+
