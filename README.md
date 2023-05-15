@@ -14,13 +14,15 @@ Imagine a pizza ordering services with the following functionality: • Order pi
 
 ## Running the application
 
+
 run *.sh files 
+or read below
 
 
 1. Clone the repository:
 
 
-    git clone https://github.com/your-username/pizza_django.git
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git
 
 
 2. Change into the cloned directory:
