@@ -14,7 +14,7 @@ def django_test_runner(context):
     context.old_db_config = context.test_runner.setup_databases()
 
 def before_all(context):
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'types.SimpleNamespace'
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'pizza_django/settings.py'
     settings.configure()
     use_fixture(django_test_runner, context)
 
