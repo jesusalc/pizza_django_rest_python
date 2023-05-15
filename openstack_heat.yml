@@ -1,0 +1,49 @@
+heat_template_version: 2016-10-14
+
+description: >
+  Heat template to deploy a Django application.
+
+parameters:
+  flavor:
+    type: string
+    description: Flavor to use for servers
+    default: m1.small
+
+  image:
+    type: string
+    description: Image to use for servers
+    default: ubuntu-18.04
+
+  key_name:
+    type: string
+    description: Key pair to enable SSH access to the instances
+
+resources:
+  web_server:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      key_name: { get_param: key_name }
+      networks:
+        - network: private_network
+      user_data_format: SOFTWARE_CONFIG
+      user_data:
+        get_resource: web_server_init_script
+
+  web_server_init_script:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      config:
+        str_replace:
+          template: |
+            #!/bin/bash
+            apt-get update
+            apt-get install -y python3-pip libpq-dev python-dev
+            pip3 install django psycopg2-binary
+            django-admin startproject mysite
+            # Here add commands to configure Django app
+
+
+
+
