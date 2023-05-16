@@ -53,9 +53,29 @@ Feel free to reach out if you have any questions or require further information.
 ## Running the application
 
 
-run *.sh files 
-or read below
+After clone 
 
+
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
+
+run *.sh files
+mac be like:
+
+        docker-build.sh
+        docker-migrate.sh
+        docker-test-coverage.sh
+        docker-test-bdd.sh
+
+run *.sh files
+fedora linux be like:
+
+        docker-build-fedora.sh
+        docker-migrate-fedora.sh
+        docker-test-coverage-fedora.sh
+        docker-test-bdd-fedora.sh
+
+
+## or read below for manual  runs
 
 1. Clone the repository:
 
@@ -90,12 +110,12 @@ or read below
     pip install -r requirements.txt
 
 
-5. Run the migrations to set up the database
+6. Run the migrations to set up the database
 
 
     python manage.py migrate
 
-6. Start the Django development server:
+7. Start the Django development server:
 
 
     python manage.py runserver
@@ -104,13 +124,55 @@ or read below
 
 #  be running on http://localhost:8000 in a production-like environment using Gunicorn and PostgreSQL as the database.
 
-7. Production
+8. Production
 
     
     Make sure to configure the ALLOWED_HOSTS setting in your settings.py file for the production environment, and consider using environment variables to manage sensitive data like the database credentials.
 
 
-7. The application is now running on `http://localhost:8000`.
+9. The application is now running on `http://localhost:8000`.
+
+## Testing
+
+    Unit testing 
+        docker-test.sh
+
+        python manage.py  test pizza_django/tests
+        
+    Behave BDD Testing 
+
+        docker-test-bdd.sh
+
+        behave
+
+    Coverage Testing
+
+        docker-test-coverage.sh
+
+        coverage run manage.py test pizza_django/tests && coverage report
+
+## Coverage Unit Testing Report
+
+    Name                                                 Stmts   Miss  Cover
+    ------------------------------------------------------------------------
+    manage.py                                               12      2    83%
+    pizza_django/__init__.py                                 0      0   100%
+    pizza_django/migrations/0001_initial.py                  6      0   100%
+    pizza_django/migrations/0002_auto_20230516_0500.py       5      0   100%
+    pizza_django/migrations/0003_auto_20230516_1030.py       4      0   100%
+    pizza_django/migrations/__init__.py                      0      0   100%
+    pizza_django/models.py                                  48      6    88%
+    pizza_django/serializers.py                             22      5    77%
+    pizza_django/settings.py                                18      0   100%
+    pizza_django/tests/test_list_orders.py                  27      0   100%
+    pizza_django/tests/test_orders.py                       26      0   100%
+    pizza_django/tests/test_remove_order.py                 13      0   100%
+    pizza_django/tests/test_retrieve_order.py               16      0   100%
+    pizza_django/tests/test_update_orders.py                27      0   100%
+    pizza_django/urls.py                                     8      0   100%
+    pizza_django/views.py                                   12      0   100%
+    ------------------------------------------------------------------------
+    TOTAL                                                  244     13    95%
 
 ## API Endpoints
 
