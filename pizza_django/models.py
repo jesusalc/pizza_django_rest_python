@@ -1,3 +1,6 @@
+# models.py
+# ---
+
 from django.db import models
 from django.core.exceptions import ValidationError
 
@@ -34,9 +37,18 @@ class Customer(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders')
     status = models.CharField(max_length=46, choices=OrderStatus.choices, default=OrderStatus.ORDERED)
-    
+
     class Meta:
         app_label = 'pizza_django'
+
+    @classmethod
+    def remove_order(cls, order_id):
+        try:
+            order = cls.objects.get(id=order_id)
+            order.delete()
+            return True
+        except cls.DoesNotExist:
+            return False
 
 class Pizza(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='pizzas')
@@ -51,3 +63,7 @@ class Pizza(models.Model):
     
     class Meta:
         app_label = 'pizza_django'
+
+# ---
+
+
