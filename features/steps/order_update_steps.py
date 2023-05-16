@@ -7,9 +7,10 @@ from pizza_django.models import Order, Pizza, PizzaFlavor, PizzaSize, OrderStatu
 def step_impl(context, order_id):
     context.order = Order.objects.get(pk=order_id)
 
-@when(u'I update the pizza flavor to "{flavor}" and count to "{count}" and size to "{size}"')
-def step_impl(context, flavor, count, size):
-    pizza = context.order.pizzas.first()
+@when('I update the pizza flavor to "{flavor}" and count to "{count}" and size to "{size}"')
+def step_when_update_pizza(context, flavor, count, size):
+    # pizza = context.order.pizzas.first()
+    pizza = context.pizza
     pizza.flavor = flavor
     pizza.count = int(count)
     pizza.size = size

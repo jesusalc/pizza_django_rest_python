@@ -39,4 +39,20 @@ def step_when_filter_orders_by_customer(context, customer_name):
 def step_then_see_all_orders(context):
     assert len
 
+@then('I should see all the orders with status "{status}"')
+def step_then_see_all_orders_with_status(context, status):
+    assert all(order.status == status for order in context.retrieved_orders)
+
+@then('I should see all the orders from customer "{customer_name}"')
+def step_then_see_all_orders_from_customer(context, customer_name):
+    assert all(order.customer.name == customer_name for order in context.retrieved_orders)
+
+@given('I have placed an order with a pizza')
+def step_given_placed_order_with_pizza(context):
+    # Here, we create a customer, an order, and a pizza.
+    context.customer = Customer.objects.create(name='John Doe', address='123 Elm St')
+    context.order = Order.objects.create(customer=context.customer, status=OrderStatus.ORDERED)
+    context.pizza = Pizza.objects.create(order=context.order, flavor=PizzaFlavor.MARGARITA, size=PizzaSize.SMALL, count=1)
+
+
 # ---
