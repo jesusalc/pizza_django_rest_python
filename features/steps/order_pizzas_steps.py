@@ -42,3 +42,10 @@ def step_impl(context):
 @then('I should be able to track the delivery of my order')
 def step_impl(context):
     assert context.status == context.order.status
+
+@then(u'I should be able to place the order successfully')
+def step_impl(context):
+    order_id = context.order_id
+    order = Order.objects.get(pk=order_id)
+    assert order is not None, f"Order with id {order_id} does not exist"
+    assert order.pizzas.count() > 0, "Order does not have any pizzas"
