@@ -15,10 +15,10 @@ def django_test_runner(context):
 
 def before_all(context):
     os.environ['DJANGO_SETTINGS_MODULE'] = 'pizza_django.settings'
-    settings.configure()
-    use_fixture(django_test_runner, context)
+    context.test_runner = DiscoverRunner()
+    context.test_runner.setup_test_environment()
+    context.old_db_config = context.test_runner.setup_databases()
 
 def after_all(context):
-    context.test_runner.teardown_test_environment()
     context.test_runner.teardown_databases(context.old_db_config)
-
+    context.test_runner.teardown_test_environment()
