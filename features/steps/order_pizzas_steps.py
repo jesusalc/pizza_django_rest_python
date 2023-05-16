@@ -62,9 +62,11 @@ def step_impl(context):
 @when('I check my order status')
 def step_when_check_order_status(context):
     # context.status = Order.objects.get(id=context.order.id).status
+    # context.status = context.order.check_status()  # assuming check_status() is a method of your Order class
     order_id = context.order.id
     order = Order.objects.get(id=order_id)
     context.order_status = order.status
+    context.status = order.status
 
 
 @then('I should be able to track the delivery of my order')
