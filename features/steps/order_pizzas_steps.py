@@ -80,6 +80,12 @@ def step_then_order_success(context):
     assert order is not None, f"Order with id {order_id} does not exist"
     assert order.pizzas.count() > 0, "Order does not have any pizzas"
 
+@given(u'I have a choice of pizza sizes')
+def step_impl(context):
+    context.pizza_sizes = [PizzaSize.SMALL, PizzaSize.MEDIUM, PizzaSize.LARGE]
+    assert context.pizza_sizes is not None
+
+
 
 # ---
 
