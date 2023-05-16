@@ -1,6 +1,5 @@
-# features/steps/order_pizzas_steps.py
+# features/steps/order_update_steps.py
 # -----
-
 from behave import given, when, then
 from pizza_django.models import Order, Pizza, PizzaFlavor, PizzaSize, OrderStatus
 

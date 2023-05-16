@@ -9,26 +9,17 @@ from pizza_django.models import Order, Pizza, Customer, PizzaFlavor, PizzaSize
 def step_impl(context):
     context.customer = Customer.objects.create(name="Test Customer", address="123 Street")
     assert context.customer is not None
-    # context.customer = customer
 
 @when('I order a "{flavor}" pizza of "{size}" size and "{count}" count')
 def step_when_order_pizza(context, flavor, size, count):
-    # context.order = Order.objects.create(customer=context.customer)
     order = Order(customer=context.customer)
     order.save()
-    # Pizza.objects.create(
-    #     order=context.order,
-    #     flavor=flavor,
-    #     size=size,
-    #     count=int(quantity),
-    # )
     pizza = Pizza(order=order, flavor=flavor, size=size, count=count)
     pizza.save()
     context.order = order
     assert context.order is not None
     context.order_id = order.id
     assert context.order_id is not None
-
 
 @then('my order should be placed successfully')
 def step_impl(context):
@@ -61,13 +52,10 @@ def step_impl(context):
 
 @when('I check my order status')
 def step_when_check_order_status(context):
-    # context.status = Order.objects.get(id=context.order.id).status
-    # context.status = context.order.check_status()  # assuming check_status() is a method of your Order class
     order_id = context.order.id
     order = Order.objects.get(id=order_id)
     context.order_status = order.status
     context.status = order.status
-
 
 @then('I should be able to track the delivery of my order')
 def step_then_track_delivery(context):
