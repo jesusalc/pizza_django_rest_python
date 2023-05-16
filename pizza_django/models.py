@@ -52,9 +52,10 @@ class Order(models.Model):
 
 class Pizza(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='pizzas')
-    flavor = models.CharField(max_length=46, choices=PizzaFlavor.choices)
-    size = models.CharField(max_length=46, choices=PizzaSize.choices)
-    count = models.IntegerField()
+    flavor = models.CharField(max_length=46, choices=PizzaFlavor.choices, default=PizzaFlavor.MARGARITA)
+    size = models.CharField(max_length=46, choices=PizzaSize.choices, default=PizzaSize.SMALL)
+    # count = models.IntegerField()
+    count = models.PositiveIntegerField()
     
     def save(self, *args, **kwargs):
         if self.order.status == OrderStatus.DELIVERED:
@@ -63,6 +64,7 @@ class Pizza(models.Model):
     
     class Meta:
         app_label = 'pizza_django'
+    
 
 # ---
 

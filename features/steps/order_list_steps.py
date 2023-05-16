@@ -47,13 +47,21 @@ def step_then_see_all_orders_with_status(context, status):
 def step_then_see_all_orders_from_customer(context, customer_name):
     assert all(order.customer.name == customer_name for order in context.retrieved_orders)
 
-@given('I have placed an order with a pizza')
-def step_given_placed_order_with_pizza(context):
+@given('I have placed an order with pizzas')
+def step_given_placed_order_with_pizzas(context):
+    assert context is not None
     context.customer = Customer.objects.create(name='John Doe', address='123 Elm St')
-    context.order = Order.objects.create(customer=context.customer, status=OrderStatus.ORDERED)
-    context.pizza = Pizza.objects.create(order=context.order, flavor=PizzaFlavor.MARGARITA, size=PizzaSize.SMALL, count=1)
     assert context.customer is not None
+    context.order = Order.objects.create(customer=context.customer, status=OrderStatus.ORDERED)
     assert context.order is not None
-    assert context.pizza is not None
+    
+    pizza1 = Pizza.objects.create(order=context.order, flavor=PizzaFlavor.MARGARITA, size=PizzaSize.SMALL, count=1)
+    assert pizza1 is not None
+    pizza2 = Pizza.objects.create(order=context.order, flavor=PizzaFlavor.HAWAIIAN, size=PizzaSize.MEDIUM, count=2)
+    assert pizza2 is not None
+    
+    context.pizzas = [pizza1, pizza2]
+    assert context.pizzas is not None
+
 
 # ---

@@ -13,7 +13,8 @@ def step_impl(context, flavor, count, size):
     assert flavor is not None, "Expected a flavor, but got none"
     assert count is not None, "Expected a count, but got none"
     assert size is not None, "Expected a size, but got none"
-    # pizza = context.order.pizzas.first()
+    pizza = context.order.pizzas.first()
+    # assert context.pizza is not None, "Expected a Context.pizza, but got none"
     pizza = context.pizza
     assert pizza is not None, "Expected a Pizza, but got none"
     pizza.flavor = flavor
