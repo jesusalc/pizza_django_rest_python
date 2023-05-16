@@ -4,18 +4,19 @@
 Feature: Update an order
 
   Scenario: Update an order's details
-    Given I have a pizza order with id "1"
+    Given I have placed an order with a pizza
     When I update the pizza flavor to "Marinara" and count to "2" and size to "large"
     Then the updated order should have flavor "Marinara", count "2", and size "large"
-
-  Scenario: Update a delivered order's details
-    Given I have a delivered pizza order with id "1"
-    When I try to update the pizza flavor to "Salami" and count to "3" and size to "medium"
-    Then I should get an error message
+    
+  Scenario: It should not be possible to update an order for some statuses of delivery
+    Given I have placed an order with a pizza and status "Delivered"
+    When I try to update the pizza flavor to "Marinara" and count to "2" and size to "large"
+    Then I should receive an error message that the order cannot be updated
 
   Scenario: Change the status of delivery
-    Given I have a pizza order with id "1"
-    When I change the delivery status to "Delivered"
-    Then the updated order should have delivery status "Delivered"
+    Given I have placed an order with a pizza and status "Ordered"
+    When I change the order status to "Delivered"
+    Then the order status should be "Delivered"
+
 
 # --
