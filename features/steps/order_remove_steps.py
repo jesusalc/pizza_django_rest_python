@@ -11,12 +11,13 @@ def step_given_registered_customer(context):
 
 @given('I have placed an order')
 def step_given_placed_order(context):
-    context.order = Order(context.customer)
-    context.order_id = context.order.id
+    context.customer = Customer.objects.create(name='John Doe', address='123 Abc St.')
+    context.order = Order.objects.create(customer=context.customer)
+    context.order_id = context.order.id  
 
 @when('I decide to remove my order')
 def step_when_remove_order(context):
-    context.order_removed = context.order.remove_order(context.order_id)
+    context.order_removed = Order.remove_order(context.order_id)
 
 @then('my order should be successfully removed')
 def step_then_order_removed(context):
