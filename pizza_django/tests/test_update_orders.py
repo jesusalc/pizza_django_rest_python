@@ -1,16 +1,18 @@
 from django.test import TestCase
 from pizza_django.models import Customer, Order, Pizza, PizzaSize, PizzaFlavor, OrderStatus
 
+
 class UpdateOrderTest(TestCase):
+
     def setUp(self):
-        self.customer = Customer.objects.create(name="Test Customer", address="123 Pizza St.")
-        self.order = Order.objects.create(customer=self.customer, status=OrderStatus.ORDERED)
-        self.pizza = Pizza.objects.create(
-            order=self.order,
-            flavor=PizzaFlavor.MARGARITA,
-            size=PizzaSize.SMALL,
-            count=2
-        )
+        self.customer = Customer.objects.create(name="Test Customer",
+                                                address="123 Pizza St.")
+        self.order = Order.objects.create(customer=self.customer,
+                                          status=OrderStatus.ORDERED)
+        self.pizza = Pizza.objects.create(order=self.order,
+                                          flavor=PizzaFlavor.MARGARITA,
+                                          size=PizzaSize.SMALL,
+                                          count=2)
 
     def test_update_order_details(self):
         self.pizza.flavor = PizzaFlavor.MARINARA

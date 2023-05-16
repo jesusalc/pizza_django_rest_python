@@ -5,37 +5,69 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Customer',
+            name="Customer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('address', models.CharField(max_length=200)),
+                ("id",
+                 models.BigAutoField(auto_created=True,
+                                     primary_key=True,
+                                     serialize=False,
+                                     verbose_name="ID")),
+                ("name", models.CharField(max_length=100)),
+                ("address", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Order',
+            name="Order",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('OD', 'Ordered'), ('DL', 'Delivered')], default='OD', max_length=2)),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pizza_django.customer')),
+                ("id",
+                 models.BigAutoField(auto_created=True,
+                                     primary_key=True,
+                                     serialize=False,
+                                     verbose_name="ID")),
+                (
+                    "status",
+                    models.CharField(choices=[("OD", "Ordered"),
+                                              ("DL", "Delivered")],
+                                     default="OD",
+                                     max_length=2),
+                ),
+                (
+                    "customer",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="pizza_django.customer"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Pizza',
+            name="Pizza",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('flavor', models.CharField(choices=[('MG', 'Margarita'), ('MR', 'Marinara'), ('SL', 'Salami')], max_length=2)),
-                ('size', models.CharField(choices=[('SM', 'Small'), ('MD', 'Medium'), ('LG', 'Large')], max_length=2)),
-                ('count', models.IntegerField()),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='pizza_django.order')),
+                ("id",
+                 models.BigAutoField(auto_created=True,
+                                     primary_key=True,
+                                     serialize=False,
+                                     verbose_name="ID")),
+                (
+                    "flavor",
+                    models.CharField(choices=[("MG", "Margarita"),
+                                              ("MR", "Marinara"),
+                                              ("SL", "Salami")],
+                                     max_length=2),
+                ),
+                ("size",
+                 models.CharField(choices=[("SM", "Small"), ("MD", "Medium"),
+                                           ("LG", "Large")],
+                                  max_length=2)),
+                ("count", models.IntegerField()),
+                ("order",
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                   to="pizza_django.order")),
             ],
         ),
     ]

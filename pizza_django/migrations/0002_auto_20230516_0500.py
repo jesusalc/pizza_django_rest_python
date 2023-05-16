@@ -5,35 +5,64 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('pizza_django', '0001_initial'),
+        ("pizza_django", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='order',
-            name='customer',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='orders', to='pizza_django.customer'),
+            model_name="order",
+            name="customer",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="orders",
+                to="pizza_django.customer"),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='status',
-            field=models.CharField(choices=[('OD', 'Ordered'), ('DL', 'Delivered'), ("<class 'pizza_django.models.OrderStatus.Meta'>", 'Meta')], default='OD', max_length=46),
+            model_name="order",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("OD", "Ordered"),
+                    ("DL", "Delivered"),
+                    ("<class 'pizza_django.models.OrderStatus.Meta'>", "Meta"),
+                ],
+                default="OD",
+                max_length=46,
+            ),
         ),
         migrations.AlterField(
-            model_name='pizza',
-            name='flavor',
-            field=models.CharField(choices=[('MG', 'Margarita'), ('MR', 'Marinara'), ('SL', 'Salami'), ("<class 'pizza_django.models.PizzaFlavor.Meta'>", 'Meta')], max_length=46),
+            model_name="pizza",
+            name="flavor",
+            field=models.CharField(
+                choices=[
+                    ("MG", "Margarita"),
+                    ("MR", "Marinara"),
+                    ("SL", "Salami"),
+                    ("<class 'pizza_django.models.PizzaFlavor.Meta'>", "Meta"),
+                ],
+                max_length=46,
+            ),
         ),
         migrations.AlterField(
-            model_name='pizza',
-            name='order',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='pizzas', to='pizza_django.order'),
+            model_name="pizza",
+            name="order",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="pizzas",
+                to="pizza_django.order"),
         ),
         migrations.AlterField(
-            model_name='pizza',
-            name='size',
-            field=models.CharField(choices=[('SM', 'Small'), ('MD', 'Medium'), ('LG', 'Large'), ("<class 'pizza_django.models.PizzaSize.Meta'>", 'Meta')], max_length=46),
+            model_name="pizza",
+            name="size",
+            field=models.CharField(
+                choices=[
+                    ("SM", "Small"),
+                    ("MD", "Medium"),
+                    ("LG", "Large"),
+                    ("<class 'pizza_django.models.PizzaSize.Meta'>", "Meta"),
+                ],
+                max_length=46,
+            ),
         ),
     ]

@@ -6,3 +6,7 @@ django-filter==2.4.0
 behave==1.2.6
 coverage==5.5
 pytest-watch==4.2.0
+flake8==3.9.2
+black==21.9b0
+pylint==2.11.1
+pycodestyle==2.7.0
