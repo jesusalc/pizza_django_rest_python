@@ -43,5 +43,10 @@ class Pizza(models.Model):
     size = models.CharField(max_length=46, choices=PizzaSize.choices)
     count = models.IntegerField()
     
+    def save(self, *args, **kwargs):
+        if self.order.status == OrderStatus.DELIVERED:
+            raise ValidationError("Cannot modify a pizza associated with a delivered order.")
+        super().save(*args, **kwargs)
+    
     class Meta:
         app_label = 'pizza_django'
