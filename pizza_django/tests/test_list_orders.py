@@ -3,15 +3,14 @@ from pizza_django.models import Customer, Order, Pizza, PizzaFlavor, PizzaSize, 
 
 class ListOrdersTest(TestCase):
     def setUp(self):
-        self.customer1 = Customer.objects.create(name="John Doe", address="123 Street")
-        self.customer2 = Customer.objects.create(name="Jane Doe", address="456 Street")
-
+        self.customer1 = Customer.objects.create(name='John Doe', address='123 Main St')
         self.order1 = Order.objects.create(customer=self.customer1, status=OrderStatus.ORDERED)
-        self.order2 = Order.objects.create(customer=self.customer2, status=OrderStatus.DELIVERED)
-
         self.pizza1 = Pizza.objects.create(order=self.order1, flavor=PizzaFlavor.MARGARITA, size=PizzaSize.MEDIUM, count=1)
-        self.pizza2 = Pizza.objects.create(order=self.order2, flavor=PizzaFlavor.SALAMI, size=PizzaSize.LARGE, count=2)
 
+        self.customer2 = Customer.objects.create(name='Jane Doe', address='456 Main St')
+        self.order2 = Order.objects.create(customer=self.customer2, status=OrderStatus.ORDERED)
+        self.pizza2 = Pizza.objects.create(order=self.order2, flavor=PizzaFlavor.SALAMI, size=PizzaSize.LARGE, count=2)
+        
     def test_list_all_orders(self):
         all_orders = Order.objects.all()
 
