@@ -10,7 +10,11 @@ class ListOrdersTest(TestCase):
         self.customer2 = Customer.objects.create(name='Jane Doe', address='456 Main St')
         self.order2 = Order.objects.create(customer=self.customer2, status=OrderStatus.ORDERED)
         self.pizza2 = Pizza.objects.create(order=self.order2, flavor=PizzaFlavor.SALAMI, size=PizzaSize.LARGE, count=2)
-        
+
+        # Update the status of order2 to DELIVERED after the pizza has been created
+        self.order2.status = OrderStatus.DELIVERED
+        self.order2.save()
+         
     def test_list_all_orders(self):
         all_orders = Order.objects.all()
 
