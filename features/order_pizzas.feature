@@ -2,12 +2,12 @@
 
 Feature: Order pizzas
 
-  Scenario: Order a pizza
+  Scenario: Specify desired flavours, count and sizes of pizza
     Given I am a registered customer
-    When I order a "margarita" pizza of "medium" size and "2" quantity
-    Then my order should be placed successfully
+    When I order a "salami" pizza of "small" size and "2" count
+    Then I should be able to place the order successfully
 
-  Scenario: Order contains customer information
+  Scenario: An order contains customer information
     Given I am a registered customer
     When I order a pizza
     Then my information should be included in the order
@@ -18,7 +18,7 @@ Feature: Order pizzas
     Then I should be able to track the delivery of my order
 
   Scenario: Order same flavour of pizza with different sizes multiple times
-    Given I am a registered customer
-    When I order a "salami" pizza of "small" size and "1" quantity
-    And I order a "salami" pizza of "large" size and "1" quantity
+    Given I have a choice of pizza sizes
+    When I order a "salami" pizza of "small" size and "2" count
+    And I order a "salami" pizza of "large" size and "3" count
     Then I should be able to place the order successfully
