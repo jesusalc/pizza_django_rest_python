@@ -8,13 +8,19 @@ def step_impl(context, order_id):
     context.order = Order.objects.get(pk=order_id)
 
 @when('I update the pizza flavor to "{flavor}" and count to "{count}" and size to "{size}"')
-def step_when_update_pizza(context, flavor, count, size):
+def step_impl(context, flavor, count, size):
+    assert context is not None, "Expected a context, but got none"
+    assert flavor is not None, "Expected a flavor, but got none"
+    assert count is not None, "Expected a count, but got none"
+    assert size is not None, "Expected a size, but got none"
     # pizza = context.order.pizzas.first()
     pizza = context.pizza
+    assert pizza is not None, "Expected a Pizza, but got none"
     pizza.flavor = flavor
     pizza.count = int(count)
     pizza.size = size
     pizza.save()
+    context.pizza = pizza 
 
 @then(u'the updated order should have flavor "{flavor}", count "{count}", and size "{size}"')
 def step_impl(context, flavor, count, size):

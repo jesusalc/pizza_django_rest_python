@@ -49,10 +49,11 @@ def step_then_see_all_orders_from_customer(context, customer_name):
 
 @given('I have placed an order with a pizza')
 def step_given_placed_order_with_pizza(context):
-    # Here, we create a customer, an order, and a pizza.
     context.customer = Customer.objects.create(name='John Doe', address='123 Elm St')
     context.order = Order.objects.create(customer=context.customer, status=OrderStatus.ORDERED)
     context.pizza = Pizza.objects.create(order=context.order, flavor=PizzaFlavor.MARGARITA, size=PizzaSize.SMALL, count=1)
-
+    assert context.customer is not None
+    assert context.order is not None
+    assert context.pizza is not None
 
 # ---
