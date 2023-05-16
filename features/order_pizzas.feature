@@ -1,14 +1,11 @@
 # features/order_pizzas.feature
 
-Feature: Order Pizzas
-  As a customer
-  I want to order pizzas
-  So that I can enjoy my favorite food
+Feature: Order pizzas
 
-  Scenario: Order specific flavours of pizza
-    Given I have a choice of pizza flavours
-    When I order a "margarita" pizza
-    Then I should be able to specify the number and size of pizzas
+  Scenario: Order a pizza
+    Given I am a registered customer
+    When I order a "margarita" pizza of "medium" size and "2" quantity
+    Then my order should be placed successfully
 
   Scenario: Order contains customer information
     Given I am a registered customer
@@ -21,7 +18,7 @@ Feature: Order Pizzas
     Then I should be able to track the delivery of my order
 
   Scenario: Order same flavour of pizza with different sizes multiple times
-    Given I have a choice of pizza sizes
-    When I order a "salami" pizza of "small" size
-    And I order a "salami" pizza of "large" size
+    Given I am a registered customer
+    When I order a "salami" pizza of "small" size and "1" quantity
+    And I order a "salami" pizza of "large" size and "1" quantity
     Then I should be able to place the order successfully

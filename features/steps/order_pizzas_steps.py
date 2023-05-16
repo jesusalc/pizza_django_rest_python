@@ -1,18 +1,44 @@
 from behave import given, when, then
+from django.test import Client
+from pizza_django.models import Order, Pizza, Customer, PizzaFlavor, PizzaSize
 
-@given('I have a choice of pizza flavours')
-def step_given_i_have_a_choice_of_pizza_flavours(context):
-    # Implement your setup here
-    pass
+@given('I am a registered customer')
+def step_impl(context):
+    context.customer = Customer.objects.create(name="Test Customer", address="123 Street")
+    assert context.customer is not None
 
-@when('I order a "{flavour}" pizza')
-def step_when_i_order_a_pizza(context, flavour):
-    # Implement your call to the order pizza API here
-    pass
+@when('I order a "{flavor}" pizza of "{size}" size and "{quantity}" quantity')
+def step_impl(context, flavor, size, quantity):
+    context.order = Order.objects.create(customer=context.customer)
+    Pizza.objects.create(
+        order=context.order,
+        flavor=flavor,
+        size=size,
+        count=int(quantity),
+    )
 
-@then('I should be able to specify the number and size of pizzas')
-def step_then_i_should_be_able_to_specify_number_and_size(context):
-    # Implement your assertion here
-    pass
+@then('my order should be placed successfully')
+def step_impl(context):
+    assert context.order is not None
+    assert context.order.status == 'OD'
 
-# Implement the other steps similarly
+@when('I order a pizza')
+def step_impl(context):
+    context.execute_steps(f'When I order a "margarita" pizza of "medium" size and "1" quantity')
+
+@then('my information should be included in the order')
+def step_impl(context):
+    assert context.order.customer == context.customer
+
+@given('I have ordered a pizza')
+def step_impl(context):
+    context.execute_steps('Given I am a registered customer')
+    context.execute_steps('When I order a pizza')
+
+@when('I check my order status')
+def step_impl(context):
+    context.status = Order.objects.get(id=context.order.id).status
+
+@then('I should be able to track the delivery of my order')
+def step_impl(context):
+    assert context.status == context.order.status
