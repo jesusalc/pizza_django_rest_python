@@ -25,7 +25,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    orders = OrderSerializer(many=True)
+    orders = OrderSerializer(many=True, required=False)
 
     class Meta:
         model = Customer

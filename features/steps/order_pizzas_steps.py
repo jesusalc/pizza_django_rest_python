@@ -84,7 +84,7 @@ def step_then_order_success(context):
 
 
 @given(u'I have a choice of pizza sizes')
-def step_impl(context):
+def step_given_a_choice_of_pizza_sizes(context):
     context.pizza_sizes = [PizzaSize.SMALL, PizzaSize.MEDIUM, PizzaSize.LARGE]
     assert context.pizza_sizes is not None
 

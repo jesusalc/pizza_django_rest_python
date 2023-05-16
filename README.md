@@ -176,13 +176,25 @@ fedora linux be like:
 
 ## API Endpoints
 
-* `/customers/` - List all customers or create a new customer
-* `/customers/{id}/` - Retrieve, update, or delete a customer by id
-* `/pizzas/` - List all pizzas or create a new pizza
-* `/pizzas/{id}/` - Retrieve, update, or delete a pizza by id
-* `/orders/` - List all orders or create a new order
-* `/orders/{id}/` - Retrieve, update, or delete an order by id
-* `/order-pizzas/` - List all order-pizza relations or create a new order-pizza relation
-* `/order-pizzas/{id}/` - Retrieve, update, or delete an order-pizza relation by id
+* `/customers.json` - List all customers or create a new customer
+* `/customers/{id}?format=json` - Retrieve, update, or delete a customer by id
+* `/pizzas.json` - List all pizzas. Pizzas can only de created with orders.json
+* `/pizzas/{id}?format=json` - Retrieve, update, or delete a pizza by id
+* `/orders.json` - List all orders or create a new order
+* `/orders/{id}/?format=json` - Retrieve, update, or delete an order by id
 
+
+Look into ./tests-\*.sh below listed, to know how to use the api calls 
+
+    ./test-customers.sh
+    ./test-orders.sh
+    ./test-pizzas.sh
+
+## Developing
+
+    pip install ruff
+
+    or 
+
+    brew install ruff
 
