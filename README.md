@@ -60,7 +60,7 @@ or read below
 1. Clone the repository:
 
 
-    git clone https://github.com/jesusalc/pizza_django_rest_python.git
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
 
 
 2. Change into the cloned directory:
