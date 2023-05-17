@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import socket
+print(socket.gethostname())
+import platform
+
+print( platform.uname() )
+print( platform.uname().system )
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,6 +81,50 @@ WSGI_APPLICATION = "pizza_django.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+print( repr( os.sys.argv ) )
+print( repr( os.sys.argv ) )
+print( repr( os.getenv("PWD") ) )
+print( repr( os.getenv("HOME") ) )
+
+# Assume Docker is like this
+# PWD=/app
+# HOME=/root
+
+# Advanced mulitple dbs
+DATABASES = {
+    "default": {
+        # ... db settings
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+        "TEST": {
+            "DEPENDENCIES": ["diamonds"],
+        },
+    },
+    "diamonds": {
+        # ... db settings
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+        "TEST": {
+            "DEPENDENCIES": [],
+        },
+    },
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
 
 DATABASES = {
     "default": {
