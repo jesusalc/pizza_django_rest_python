@@ -1,4 +1,4 @@
-heroku create myapp-development
-heroku create myapp-staging
-heroku create myapp-production
+heroku create pizza_django-development
+heroku create pizza_django-staging
+heroku create pizza_django-production
 

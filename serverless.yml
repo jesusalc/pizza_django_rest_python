@@ -1,4 +1,4 @@
-service: my-service
+service: pizza_django
 
 provider:
   name: aws

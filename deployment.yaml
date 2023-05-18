@@ -2,30 +2,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pizza-django-deployment
+  name: pizza_django-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: pizza-django
+      app: pizza_django
   template:
     metadata:
       labels:
-        app: pizza-django
+        app: pizza_django
     spec:
       containers:
-      - name: pizza-django
-        image: <dockerhub-username>/pizza-django:latest
+      - name: pizza_django
+        image: <dockerhub-username>/pizza_django:latest
         ports:
         - containerPort: 8000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pizza-django-service
+  name: pizza_django-service
 spec:
   selector:
-    app: pizza-django
+    app: pizza_django
   ports:
     - protocol: TCP
       port: 80

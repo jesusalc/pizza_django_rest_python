@@ -46,100 +46,202 @@ Feel free to reach out if you have any questions or require further information.
 
 ---
 
-
-## Requirements
+# Development
 
 
 ## Running the application
 
 
+
 After clone 
 
+on mac
 
-    git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git pizza_django
 
-run *.sh files
-mac be like:
-
-        docker-build.sh
-        dpcker-run.sh
-        docker-migrate.sh
-        docker-test-coverage.sh
-        docker-test-bdd.sh
-
-run *.sh files
-fedora linux be like:
-
-        docker-build-fedora.sh
-        docker-run-fedora.sh
-        docker-migrate-fedora.sh
-        docker-test-coverage-fedora.sh
-        docker-test-bdd-fedora.sh
-
-
-## or read below for manual  runs
-
-1. Clone the repository:
-
-
-    on mac
-    
-    git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
-
-
-    on Linux
+on Linux using Podman
 
     git clone https://github.com/jesusalc/pizza_django_rest_python.git
 
+run with *.sh files mac be like
 
-2. Change into the cloned directory:
+
+    docker-build.sh
+    dpcker-run.sh
+    docker-migrate.sh
+    docker-test.sh
+    docker-test-bdd.sh
+    docker-test-coverage.sh
+    tests-customers.sh
+    tests-customers.sh
+    tests-customers.sh
+    tests-orders.sh
+    tests-orders.sh
 
 
+
+run with *.sh files fedora linux be like
+
+
+    docker-build-fedora.sh
+    docker-run-fedora.sh
+    docker-migrate-fedora.sh
+    docker-test-fedora.sh
+    docker-test-bdd-fedora.sh
+    docker-test-coverage-fedora.sh
+    tests-customers.sh
+    tests-customers.sh
+    tests-customers.sh
+    tests-orders.sh
+    tests-orders.sh
+
+---
+
+## or docker manually be like:
+
+1. Clone the repository:
+
+on mac
+
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
     cd pizza_django
 
 
-3. Build and start the application using Docker Compose:
+on Linux using Podman
 
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git
+    cd pizza_django_rest_python
+
+
+2. Build and start the application using Docker Compose:
+  
+on detached
 
     docker-compose up --build -d
 
+stay on process
+
     docker-compose up --build
+
+
+    Find it running on http://localhost:8000 in a production-like environment using  PostgreSQL as the database
+
+
+3. Run the migrations to set up the database
+
+on mac
+
+    docker-migrate.sh
+
+on Linux using Podman
+
+    docker-migrate-fedora.sh
 
 4. Running the tests
 
+on mac
+
+    docker-test.sh
+    docker-test-bdd.sh
+    docker-test-coverage.sh
+
+on Linux using Podman
+
+    docker-test-fedora.sh
+    docker-test-bdd-fedora.sh
+    docker-test-coverage-fedora.sh
+
+
+## or manually *without* docker be like:
+
+1. Clone
+
+on mac
+
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
+    cd pizza_django
+
+
+on Linux using Podman
+
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git
+    cd pizza_django_rest_python
+
+2. Setup env 
+
+on mac and linux 
 
     python -m venv venv
     source venv/bin/activate  
 
-# On Windows, use 'venv\Scripts\activate'
+on windows 
+    
+    use 'venv\Scripts\activate'
 
-5. Install the dependencies from the requirements.txt file:
+3. Install the dependencies from the requirements.txt file:
 
+on mac and linux and windows
 
     pip install -r requirements.txt
 
+4. Start the Django development server:
 
-6. Run the migrations to set up the database
-
-
-    python manage.py migrate
-
-7. Start the Django development server:
-
+on mac and linux and windows
 
     python manage.py runserver
 
-    running on http://localhost:8000 in a production-like environment using  PostgreSQL as the database
+    running on http://localhost:8000 in dev-like environment using Sqlite as the database.
 
-    running on http://localhost:8000 in dev mode production-like environment using  Sqlite as the database.
+5. Run the migrations to set up the database
 
-8. Production
+on mac and linux and windows
+
+    python manage.py migrate
+
+6. Running the tests
+
+on mac and linux and windows
+
+    python manage.py test test pizza_django/tests
+
+    pip install coverage
+    conda install coverage
+    
+    coverage run manage.py test
+    coverage html
+    coverage report
+
+6. Develop more unit tests and watch
+
+on mac and linux and windows
+
+    pip install ptw
+    conda install ptw
+    ptw pizza_django/tests/
+
+
+# Production
 
     
     Make sure to configure the ALLOWED_HOSTS setting in your settings.py file for the production environment, and consider using environment variables to manage sensitive data like the database credentials.
 
+    Change the port from 8000 to 80
 
-9. The application is now running on `http://localhost:8000`.
+    Find starter scripts for the follwing Setups:
+    
+        Docker 
+        Kubernetes 
+        AWS 
+        Serveless 
+        Lamba 
+        OpenStack 
+        Heroku 
+        Terraform 
+        CircleCI 
+        TravisCI 
+        GitlabCI 
+        Azure 
+
 
 ## Testing
 
@@ -159,6 +261,12 @@ fedora linux be like:
         docker-test-coverage.sh
 
         coverage run manage.py test pizza_django/tests && coverage report
+
+    Curl Testing
+
+        tests-customers.sh
+        tests-orders.sh
+
 
 ## Coverage Unit Testing Report
 
@@ -183,7 +291,11 @@ fedora linux be like:
     ------------------------------------------------------------------------
     TOTAL                                                  244     13    95%
 
-## API Endpoints
+
+## API Endpoints . *THIS IS NOT STANDARD ROUTE SETUP* 
+
+Rather than using standard route setup for this repo
+I opted for using .json function provided by django to use the Smart ViewSets
 
 * `/customers.json` - List all customers or create a new customer
 * `/customers/{id}?format=json` - Retrieve, update, or delete a customer by id
@@ -192,12 +304,6 @@ fedora linux be like:
 * `/orders.json` - List all orders or create a new order
 * `/orders/{id}/?format=json` - Retrieve, update, or delete an order by id
 
-
-Look into ./tests-\*.sh below listed, to know how to use the api calls 
-
-    ./test-customers.sh
-    ./test-orders.sh
-    ./test-pizzas.sh
 
 
 ## Linting
@@ -225,6 +331,6 @@ Look into ./tests-\*.sh below listed, to know how to use the api calls
 
     There is pre-commit hook that runs ruff
 
-    
+
 
 

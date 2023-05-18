@@ -1,2 +1,2 @@
-heroku pipelines:create myapp-pipeline
+heroku pipelines:create pizza_django-pipeline
 
