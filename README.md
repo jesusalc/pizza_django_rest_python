@@ -62,6 +62,7 @@ run *.sh files
 mac be like:
 
         docker-build.sh
+        dpcker-run.sh
         docker-migrate.sh
         docker-test-coverage.sh
         docker-test-bdd.sh
@@ -70,6 +71,7 @@ run *.sh files
 fedora linux be like:
 
         docker-build-fedora.sh
+        docker-run-fedora.sh
         docker-migrate-fedora.sh
         docker-test-coverage-fedora.sh
         docker-test-bdd-fedora.sh
@@ -80,7 +82,14 @@ fedora linux be like:
 1. Clone the repository:
 
 
+    on mac
+    
     git clone https://github.com/jesusalc/pizza_django_rest_python.git  pizza_django
+
+
+    on Linux
+
+    git clone https://github.com/jesusalc/pizza_django_rest_python.git
 
 
 2. Change into the cloned directory:
@@ -120,9 +129,9 @@ fedora linux be like:
 
     python manage.py runserver
 
+    running on http://localhost:8000 in a production-like environment using  PostgreSQL as the database
 
-
-#  be running on http://localhost:8000 in a production-like environment using Gunicorn and PostgreSQL as the database.
+    running on http://localhost:8000 in dev mode production-like environment using  Sqlite as the database.
 
 8. Production
 
@@ -190,11 +199,32 @@ Look into ./tests-\*.sh below listed, to know how to use the api calls
     ./test-orders.sh
     ./test-pizzas.sh
 
-## Developing
 
-    pip install ruff
+## Linting
+
+
+    Make to install all the used packages for linting:
+
+    flake8 black yapf pylint ruff autopep8  oe ohne
+
+    like 
+    
+    pip install flake8 black yapf pylint ruff autopep8
 
     or 
 
-    brew install ruff
+    brew install flake8 black yapf pylint ruff autopep8
+
+    oe and ohne install from https://github.com/zeusintuivo/bash_intuivo_cli
+
+
+    ./fix_lint.sh
+
+
+## Hooks
+
+    There is pre-commit hook that runs ruff
+
+    
+
 
