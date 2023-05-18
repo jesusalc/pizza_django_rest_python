@@ -70,6 +70,7 @@ run with *.sh files mac be like
     dpcker-run.sh
     docker-migrate.sh
     docker-test.sh
+    docker-test-pytest.sh
     docker-test-bdd.sh
     docker-test-coverage.sh
     tests-customers.sh
@@ -87,6 +88,7 @@ run with *.sh files fedora linux be like
     docker-run-fedora.sh
     docker-migrate-fedora.sh
     docker-test-fedora.sh
+    docker-test-pytest-fedora.sh
     docker-test-bdd-fedora.sh
     docker-test-coverage-fedora.sh
     tests-customers.sh
@@ -142,12 +144,14 @@ on Linux using Podman
 on mac
 
     docker-test.sh
+    docker-test-pytest.sh
     docker-test-bdd.sh
     docker-test-coverage.sh
 
 on Linux using Podman
 
     docker-test-fedora.sh
+    docker-test-pytest-fedora.sh
     docker-test-bdd-fedora.sh
     docker-test-coverage-fedora.sh
 
@@ -203,6 +207,7 @@ on mac and linux and windows
 on mac and linux and windows
 
 Unit testing 
+
     python manage.py test test pizza_django/tests
 
 
@@ -214,6 +219,15 @@ Unit Testing Coverage
     coverage run manage.py test
     coverage html
     coverage report
+
+Unit py-testing 
+
+    pip install pytest
+    conda install pytest
+
+    pytest
+
+
 
 BDD Testing 
 
@@ -262,6 +276,10 @@ on mac and linux and windows
 
         python manage.py  test pizza_django/tests
         
+    Pytest
+
+        pytest
+
     Behave BDD Testing 
 
         docker-test-bdd.sh
