@@ -202,7 +202,11 @@ on mac and linux and windows
 
 on mac and linux and windows
 
+Unit testing 
     python manage.py test test pizza_django/tests
+
+
+Unit Testing Coverage 
 
     pip install coverage
     conda install coverage
@@ -211,7 +215,15 @@ on mac and linux and windows
     coverage html
     coverage report
 
-6. Develop more unit tests and watch
+BDD Testing 
+
+    pip install behave
+    conda install behave
+
+    behave
+
+
+6. Develop more unit tests and watch. Continuous Developement.
 
 on mac and linux and windows
 
@@ -329,7 +341,7 @@ I opted for using .json function provided by django to use the Smart ViewSets
 
 ## Hooks
 
-    There is pre-commit hook that runs ruff
+    There is pre-commit hook that runs ruff instead of flake8
 
 
 
